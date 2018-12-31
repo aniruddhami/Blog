@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blogs</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Frijole" rel="stylesheet">
+    <!-- stylesheet for icon download,blog image, plus  -->
+    <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css' integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU' crossorigin='anonymous'>
+    <!-- stylesheet for icon signout-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Functional Text area -->
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=pdwo8o8okf9is2y7h9jclit0m5da3r1g4es1nqh3hhojw0az"></script>
+    <script>
+      tinymce.init({ selector:'#blog_Discription'});
+    </script>
+  </head>
+  <body >
+    <!-- nav bar start -->
+    <div class ="nonFooter">
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href=<%= root_path%>>
+        <img src=<%= image_path "brandlogo.png" %> width="50" height="50" alt="Blogger">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <!-- Include link in navbar  -->
+          <li class="<%= 'active' if current_page?(root_path) %>  nav-item ">
+            <a class="nav-link" href=<%= root_path%>>Home<span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="<%= 'active' if current_page?(pages_about_path) %> nav-item">
+            <a class="nav-link" href=<%= pages_about_path%>>About</a>
+          </li>
+          <li class="<%= 'active' if current_page?(pages_contactus_path) %> nav-item">
+            <a class="nav-link " href=<%= pages_contactus_path%>>Contact us</a>
+          </li>
+          <li class="<%= 'active' if current_page?(pages_how_to_write_path) %> nav-item">
+            <a class="nav-link " href=<%= pages_how_to_write_path%>>How To write blog</a>
+          </li>
+          <!-- login as Admin print Admin View -->
+          <% if admin_signed_in? %>
+            <li class="nav-item">
+              <marquee class="nav-link" style="color:white" >   Admin View    </marquee>
+            </li>
+          <% end%>
+        </ul>
+        <ul class="navbar-nav mr-auto">
+          <!-- if logined as user dropdown list item -->
+          <% if user_signed_in? %>
+            <li class="dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="rounded-0" src=<%= image_path "uinfo.png" %> alt="Third slide" >
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #68243d;">
+                <a class="nav-link" style="color: white" href=<%= pages_Myblogs_path%>><i class='fab fa-blogger-b'></i> My Blog</a>
+                <a    class="nav-link" style="text-decoration:none;color:white" href=<%= new_blog_path%>>
+                  <i class="fas fa-plus"></i> Create blog</a>
+                <button onclick="exportTableToCSV('Blog.csv')" style="color: white;background-color:#68243d;border:none;font-weight:bold">
+                  <i class='fas fa-cloud-download-alt'></i> Download
+                </button>
+                <%= link_to " <i class='fa fa-sign-out'></i>Logout".html_safe, destroy_user_session_path, :method => :delete , class:"nav-link ", style: "color:white"  %>
+              </div>
+            </li>
+          <% elsif admin_signed_in? %>
+            <!-- if logined as Admin dropdown list item -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="rounded-0" src=<%= image_path "uinfo.png" %> alt="Third slide" >
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: #68243d;">
+                <a class="nav-link" style="color: white" href=<%= pages_Myblogs_path%>><i class='fab fa-blogger-b'></i> My Blog </a>
+                <a    class="nav-link" style="text-decoration:none;color:white" href=<%= new_blog_path%>>
+                  <i class="fas fa-plus"></i> Create blog</a>
+                <button onclick="exportTableToCSV('Blog.csv')" style="color: white;background-color:#68243d;border:none;font-weight:bold">
+                  <i class='fas fa-cloud-download-alt'></i> Download
+                </button>
+                <%= link_to " <i class='fa fa-sign-out'></i>Logout".html_safe, destroy_admin_session_path, :method => :delete , class:"nav-link ", style: "color:white"  %>
+              </div>
+               </li>
+          <% else %>
+            <!-- if login session not set show login,Signup link -->
+            <li class="nav-item active">
+              <a class="nav-link" href=<%= new_admin_session_path %>>Admin View</a>
+            </li>
+            <li class="nav-item"><a class="nav-link " href=<%= new_user_session_path %>>Login</a></li>
+            <li class="nav-item">
+              <a class="nav-link " href=<%= new_user_registration_path%>>SignUp</a>
+            </li>
+          <% end %>
+        </ul>
+        <!-- search blog from it's title -->
+        <%= form_tag root_path+"#Blogs",class:"form-inline my-2 my-lg-0", :method => 'get' do %>
+          <%= text_field_tag :search, params[:search], class:"form-control mr-sm-2", placeholder:"Search", :required => true %>
+          <%= button_tag(type: "submit", class: "btn btn-outline-success", :name => nil) do %>
+            <i class="fas fa-search"></i>
+          <% end %>
+        <% end %>
+      </div>
+    </nav>
+    <!-- end of nav -->
+    <!--  table to download blog -->
+    <table hidden="true">
+      <thead>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Discription</th>
+      </thead>
+      <tbody>
+        <% @blogs.each do |blog| %>
+          <tr>
+            <td><%=blog.id%></td>
+            <td><%=blog.Title.gsub(/[\s,]/ ," ")%></td>
+            <td><%= ActionView::Base.full_sanitizer.sanitize(blog.Discription).gsub(/[\s,]/ ," ")%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <!-- notice for all like login success,login Unsuccess,blog Created, Blog Updated or deleted -->
+    <% if notice %>
+      <div class="alert alert-info alert-dismissible">
+        <%= notice %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div class="alert alert-warning alert-dismissible">
+        <%= alert %>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <% end %>
+    <div id="page-content-wrapper">
+      <%= yield %>
+  </div>
+</div>
+  <div   class="footer">
+  <!-- Navbar content -->
+  <center>
+      <label style=" color:white;"> @Developed By Aniruddha Mirajkar</label>
+  </center>
+</div>
+</body>
+</html>

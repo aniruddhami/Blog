@@ -1,0 +1,29 @@
+<br>
+<center>
+  <div class="card border-success mb-3" style="max-width: 18rem;">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <h5><%= devise_error_messages! %></h5>
+    <div class="card-header bg-transparent border-success"><b>Login</b></div>
+    <div class="card-body text-success">
+      <div class="form-group">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true, class:"form-control", autocomplete: "email",required: "true" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, class:"form-control", autocomplete: "current-password",required: "true" %>
+      </div>
+    </div>
+    <div class="card-footer bg-transparent border-success">
+      <center>
+        <%= f.submit "Sign In", class:"btn btn-success" %>
+      </center>
+      <center>
+        <center>Yet Not Rgistered !!!
+          <%= render "devise/shared/links" %>
+        </center>
+      </center>
+    </div>
+    <% end %>
+  </div>
+</center>

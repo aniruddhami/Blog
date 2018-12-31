@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="container">
+ <div style="float: left;">
+  <img id="loading" src=<%= image_path "edit.png" %> height="50px" > 
+ </div>
+ <div style="float:left"><h1>Editing Blog</h1> </div>
+<%= form_with(model: @blog, local: true,:html => { :onsubmit => "return submitForm()" }) do |form| %>
+  <% if @blog.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blog.errors.count, "error") %> prohibited this blog from being saved:</h2>
+
+      <ul>
+      <% @blog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.text_field :Title, id: :blog_Title, class:"form-control", required:"true",style:"border-radius: 25px;background-color: rgb(230,230,230);height:50px", placeholder:"Enter Title" %>
+  </div>
+  <div class="form-group">
+    <%= form.text_area :Discription, id: :blog_Discription, class:"form-control" ,style:"border-radius: 25px;background-color: rgb(230,230,230);height:180px", placeholder:"Discription", minlength: "120"  %>
+
+  </div>
+  <div class="form-group">
+    <%= form.label :image %>  </div>
+   <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+  </div>
+  <div class="custom-file">
+    <%= form.file_field :image, id: :blog_image, class:"custom-file-input", accept:"image/*" %>
+    <label class="custom-file-label" for="blog_image">Choose file</label>
+  </div>
+  </div>
+  <label style="color: red">If You not Select An image previous image is as it is display</label>
+  
+ <!-- set default user login email to email field -->
+  <% if user_signed_in?%>
+   <div class="form-group">
+    <%= form.text_field :email, id: :blog_email, value: current_user.email, type:"hidden" %>
+  </div>
+   <!-- set default admin login email to email field -->
+  <% elsif admin_signed_in?%>
+  <div class="form-group">
+     <!-- set default user login email to email field if admin email match to current login mail -->
+  	<% if  current_admin.email == @blog.email %>
+  	<%= form.text_field :email, id: :blog_email, value: current_admin.email,type:"hidden" %>
+  	<% else %>
+       <!-- Admin edit another people blog -->
+       <!-- can't update value of email  -->
+  	<% end %>
+    
+  </div>
+  <% end %>
+ 
+  <div class="actions">
+    <!-- submitting an form -->
+  <center><input type="submit" class="btn btn-primary" id = 'submitblog'  value="Edit blog" %></center> 
+  </div>
+<% end %>
+</div>
+

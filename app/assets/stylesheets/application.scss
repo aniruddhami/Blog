@@ -1,0 +1,86 @@
+/* Including Bootstrap In Rails Application*/
+@import "bootstrap";
+@import "footer";
+@import "blogs";
+@import "font-awesome";
+
+/* Including Font */
+@font-face {
+  font-family: Billabong;
+  src: url(Billabong.woff) format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: century;
+  src: url(Century-Gothic.ttf);
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* set default font to body */
+body {
+  font-family: century;
+  font-weight: bold;
+  background-color: white;
+
+}
+
+
+
+/* for rotating and image*/
+#loading {
+  -webkit-animation: rotation 5s infinite linear;
+}
+
+@-webkit-keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+
+
+
+/* home page slider animation */
+.carousel-fade {
+  .carousel-inner {
+    .item {
+      opacity: 0;
+      transition-property: opacity;
+    }
+
+    .active {
+      opacity: 1;
+    }
+
+    .active.left,
+    .active.right {
+      left: 0;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    .next.left,
+    .prev.right {
+      opacity: 1;
+    }
+  }
+
+  .carousel-control {
+    z-index: 2;
+  }
+}
+
+h2{
+  font-size:18px;
+  color:red;   
+}
+ul{
+  list-style:none;
+}
+

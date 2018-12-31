@@ -1,0 +1,85 @@
+<br>
+<div class="container">
+  <% if user_signed_in? %>
+   <!-- if blog is present print state -->
+  <% if @blogs.where(email: current_user.email).count > 0 %>
+  <h1>Your BLogs</h1>
+  <%else %>
+  <center>
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src=<%= image_path "oops.gif" %> alt="Card image cap" height="150px" width="100px">
+      <div class="card-body">
+        <h1> You Cant Created Any Blogs</h1>
+        <form action=<%=new_blog_path%>><button class="btn btn-outline-info">Create blog</button></form>
+      </div>
+    </div>
+  </center>
+  <% end %>
+  <% @blogs.where(email: current_user.email).each do |blog| %>
+  <div class="container py-3" >
+    <div class="card" style="background-color:pink">
+      <div class="row ">
+        <div class="col-md-4">
+          <center> <img class="w-100" src=<%= blog.image %> alt="Third slide" style="max-height: 300px;max-width: 400px">
+          </center>
+        </div>
+        <div class="col-md-8 px-3">
+          <div class="card-block px-3">
+            <h3 class="card-title" style="font-weight: bold;">
+              <center><%= blog.Title %></center>
+            </h3>
+            <p class="card-text"> <%= ActionView::Base.full_sanitizer.sanitize(blog.Discription).truncate_words(100)%>
+            </p>
+            <p class="card-text"></p>
+            <a href=<%= blog_path(blog)  %>>
+              <button class='badge badge-pill badge-info' style="font-size: 15px">Read More</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% elsif admin_signed_in? %> 
+  <% if @blogs.where(email: current_admin.email).count > 0 %>
+  <h1>Your BLogs</h1>
+  <%else %>
+  <center>
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src=<%= image_path "oops.gif" %> alt="Card image cap">
+      <div class="card-body">
+        <h1> You Cant Created Any Blogs</h1>
+        <form action=<%=new_blog_path%>><button class="btn btn-outline-info">Create blog</button></form>
+      </div>
+    </div>
+  </center>
+  <% end %>
+  <% @blogs.where(email: current_admin.email).each do |blog| %>
+  <div class="container py-3" >
+    <div class="card" style="background-color:pink">
+      <div class="row ">
+        <div class="col-md-4">
+          <center> <img class="w-100" src=<%= blog.image %> alt="Third slide" style="max-height: 300px;max-width: 400px">
+          </center>
+        </div>
+        <div class="col-md-8 px-3">
+          <div class="card-block px-3">
+            <h3 class="card-title" style="font-weight: bold;">
+              <center><%= blog.Title %></center>
+            </h3>
+            <p class="card-text"> <%= ActionView::Base.full_sanitizer.sanitize( blog.Discription).truncate_words(100)%>
+            </p>
+            <p class="card-text"></p>
+            <center> <a href=<%= blog_path(blog) %>><button class='badge badge-pill badge-info' style="font-size: 15px">Read More</button></a>
+              <%= link_to 'Edit', edit_blog_path(blog), class:"btn btn-primary" %>
+              <%= link_to 'Destroy', blog, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
+              <br>
+              <br>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+  <% end %>
+</div>

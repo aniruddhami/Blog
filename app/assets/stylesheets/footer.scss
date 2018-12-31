@@ -1,0 +1,25 @@
+html,body{
+height: 100%;
+margin: 0px;
+}
+.footer {
+height:50px;
+margin: 0;
+clear: both;
+width:100%;
+position: relative;
+background-color: black;
+padding-top:10px;
+}
+.nonFooter{
+min-height: 98%;
+position:relative;
+/* Firefox */
+min-height: -moz-calc(98% - 50px);
+/* WebKit */
+min-height: -webkit-calc(98% - 50px);
+/* Opera */
+min-height: -o-calc(98% - 50px);
+/* Standard */
+min-height: calc(98% - 50px);
+}

@@ -1,0 +1,55 @@
+     <!--  <!-- footer start -->
+    </div>
+    <br>
+    <footer >
+      <div class="row fix">
+        <div class="col-sm-4">
+          <p>
+            <b><a href=<%= root_path%>>Home</a></b>
+          </p>
+          <p>
+            <b><a href="#">Research</a></b>
+          </p>
+          <p>
+            <b><a href="#">Help</a></b>
+          </p>
+          <p>
+            <b><a href=<%= pages_how_to_write_path%>>How To Write An Blog</a></b>
+          </p>
+          <p>
+            <div id="hoverFB">
+              <a href="" style="display:block;width:114px;height:21px;"> </a>
+            </div>
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <b>
+            <p>
+              Information & Research Help
+            </p>
+          </b>
+          <p>
+            630-844-5437 (phone)
+          </p>
+          <p>
+            630-844-3848 (fax)
+          </p>
+          <p>
+            630-796-7615 (text)
+          </p>
+          <b>
+            <p>
+              Interlibrary Loan
+            </p>
+          </b>
+          <p>
+            630-844-5439
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <h2>All rights reserved</h2>
+          <h1 style="font-family: Billabong">Cracker's Blog</h1>
+        </div>
+      </div>
+    </footer>
+    <!-- footer End --> -->

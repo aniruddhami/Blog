@@ -1,0 +1,56 @@
+
+<%= form_with(model: blog, local: true,:html => { :onsubmit => "return submitForm()" }) do |form| %>
+  <% if blog.errors.any? %>
+    <div id="error_explanation">
+
+      <h3><%= pluralize(blog.errors.count, "error") %> prohibited this blog from being saved:</h3>
+
+      <ul>
+      <% blog.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.text_field :Title, id: :blog_Title, class:"form-control", required:"true",style:"border-radius: 25px;background-color: rgb(230,230,230);height:50px", placeholder:"Enter Title" %>
+  </div>
+  <div class="form-group">
+   <%= form.text_area :Discription, id: :blog_Discription, class:"form-control" ,style:"border-radius: 25px;background-color: rgb(230,230,230);height:180px", placeholder:"Discription", minlength: 120,onchange: "discription_change()" %> 
+     
+  </div>
+  <div class="form-group">
+    <%= form.label :image %>  </div>
+   <div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+  </div>
+  <div class="custom-file">
+    
+    <%= form.file_field :image, id: :blog_image, class:"custom-file-input", required:"true", accept:"image/*",oninput: "filename()" %>
+
+    <label class="custom-file-label" for="blog_image" id="image_label">Choose file</label>
+  </div>
+  
+</div>
+   <!-- set value of email according to login status   -->
+   <!-- if loginged user is user the put email address of user -->
+  <% if user_signed_in?%>
+
+   <div class="form-group">
+    <%= form.text_field :email, id: :blog_email, value: current_user.email, type:"hidden" %>
+  </div>
+  <!-- if loginged user is Admin the put email address of Admin -->
+  <% elsif admin_signed_in?%>
+  <div class="form-group">
+    <%= form.text_field :email, id: :blog_email, value: current_admin.email, type:"hidden" %>
+  </div>
+  <% end %>
+ 
+  <div class="actions">
+    <!-- submitting an form -->
+   <center><input type="submit" class="btn btn-primary" id = 'submitblog'  value="create blog" %></center> 
+  </div>
+<% end %>
+</div>
